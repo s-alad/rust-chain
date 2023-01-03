@@ -1,16 +1,7 @@
-pub struct Block {
-    pub index: u64,
-}
-
-impl Block {
-    pub fn new(index: u64) -> Self {
-        Block {
-            index
-        }
-    }
-}
+use blockchainlibrary::*;
 
 fn main() {
-    let block = Block::new(1);
-    println!("Hello, world! {}", block.index);
+    let block = Block::new(0, 0, String::from("0"), 0, String::from("Genesis"));
+
+    println!("{:?}", block);
 }

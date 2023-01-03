@@ -1,1 +1,1 @@
-C:\Users\salad\Src\_crypto\rustchain\target\debug\blockchain.exe: C:\Users\salad\Src\_crypto\rustchain\src\main.rs
+C:\Users\salad\Src\_crypto\rustchain\target\debug\blockchain.exe: C:\Users\salad\Src\_crypto\rustchain\src\block.rs C:\Users\salad\Src\_crypto\rustchain\src\lib.rs C:\Users\salad\Src\_crypto\rustchain\src\main.rs
