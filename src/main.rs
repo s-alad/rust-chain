@@ -18,7 +18,7 @@ fn main() {
     for i in 1..=10 {
         let mut block = Block::new(i, 0, lasthash, 0, String::from(i.to_string()), diff);
         block.mine();
-        println!("NEW - {:?}", &block);
+        println!("[{i}] - {:?}", &block);
 
         lasthash = block.hash.clone();
         chain.blocks.push(block);
