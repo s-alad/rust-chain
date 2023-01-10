@@ -1,19 +1,29 @@
-use std::hash;
+use std::hash::{self, Hash};
 
 use blockchainlibrary::*;
 
 fn main() {
-    let mut block = Block::new(0, 0, vec![0; 32], 0, String::from("Genesis block"), 0x000fffffffffffffffffffffffffffff);
-
-    println!("{:?}", &block);
-
-    block.hash = block.hash();
-
-    println!("{:?}", &block);
+    let diff:u128 = 0x000fffffffffffffffffffffffffffff;
+    let mut block = Block::new(0, 0, vec![0; 32], 0, String::from("Genesis block"), diff);
 
     block.mine();
+    println!("GENISIS MINED - {:?}", &block);
 
-    println!("{:?}", &block);
+    let mut lasthash = block.hash.clone();
+
+    let mut chain = Blockchain{
+        blocks: vec![block]
+    };
+
+    for i in 1..=10 {
+        let mut block = Block::new(i, 0, lasthash, 0, String::from(i.to_string()), diff);
+        block.mine();
+        println!("NEW - {:?}", &block);
+
+        lasthash = block.hash.clone();
+        chain.blocks.push(block);
+
+    }    
 
 
 }
