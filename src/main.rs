@@ -3,15 +3,17 @@ use std::hash;
 use blockchainlibrary::*;
 
 fn main() {
-    let mut block = Block::new(0, 0, vec![0; 32], 0, String::from("Genesis block"));
+    let mut block = Block::new(0, 0, vec![0; 32], 0, String::from("Genesis block"), 0x00ffffffffffffff);
 
     println!("{:?}", &block);
 
-    let hash = block.hash();
-
-    println!("{:?}", &hash);
-
-    block.hash = hash;
+    block.hash = block.hash();
 
     println!("{:?}", &block);
+
+    block.mine();
+
+    println!("{:?}", &block);
+
+
 }
