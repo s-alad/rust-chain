@@ -28,5 +28,4 @@ fn main() {
         println!("VERIFY {i} - {}", &chain.verify());
     }    
 
-
 }
