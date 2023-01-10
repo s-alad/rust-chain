@@ -46,3 +46,7 @@ impl Hashable for Block {
         return bytes;
     }
 }
+
+pub fn difficulty(hash: &Hash, difficulty: u128) -> bool {
+    return difficulty > difficulty_bytes_as_u128(hash)
+}
