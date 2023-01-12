@@ -1,3 +1,3 @@
 # rustchain
 
-Proof Of Work Blockchain from scratch implementation in Rust
+A mediocre Proof Of Work Blockchain from scratch implementation in Rust
