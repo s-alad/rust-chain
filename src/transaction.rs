@@ -1,6 +1,7 @@
 use std::collections::HashSet;
-
 use super::*;
+
+#[derive(Clone)]
 
 pub struct Output {
     pub to: Address,

@@ -40,7 +40,7 @@ impl Blockchain {
             println!("[{i}] - FAIL DIFFICULTY");
             return Err(BlockValidationError::InvalidHash);
         }
-        else if (i != 0) {
+        else if i != 0 {
 
             let previousblock = &self.blocks[i - 1];
 
@@ -73,7 +73,8 @@ impl Blockchain {
 
             for txn in transactions {
                 let input_hashes = txn.input_hashes();
-                if !(&input_hashes - &self.unspent).is_empty() || (&input_hashes & &block_spent).is_empty() {
+
+                if !(&input_hashes - &self.unspent).is_empty() || !(&input_hashes & &block_spent).is_empty() {
                     return Err(BlockValidationError::InvalidInput);
                 }
 
