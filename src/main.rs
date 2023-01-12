@@ -32,7 +32,7 @@ fn main() {
 
     let mut chain = Blockchain::new();
 
-    chain.verify(genesis);
+    chain.verify(genesis).expect("FAIL TO ADD GENESIS");
 
 
 }

@@ -1,6 +1,8 @@
 use std::{fmt::{self, Debug, Formatter}, collections::HashSet};
 use super::*;
 
+#[derive(Debug)]
+
 pub enum BlockValidationError {
     MismatchedIndex,
     InvalidHash,
