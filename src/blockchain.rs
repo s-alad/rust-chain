@@ -1,6 +1,17 @@
 use std::fmt::{self, Debug, Formatter};
 use super::*;
 
+pub enum BlockValidationError {
+    MismatchedIndex,
+    InvalidHash,
+    NonChronologicalTime,
+    MismatchedPrevious,
+    InvalidGenesis,
+    InvalidInput,
+    InsufficientInput,
+    invalidBaseTransaction,
+}
+
 pub struct Blockchain {
     pub blocks: Vec<Block>,
 }
