@@ -18,6 +18,14 @@ pub struct Blockchain {
 }
 
 impl Blockchain {
+
+    pub fn new() -> Self {
+        Blockchain {
+            blocks: vec![],
+            unspent: HashSet::new()
+        }
+    }
+
     pub fn verify(&mut self, block: Block) -> Result<(), BlockValidationError> {
         
         let i = self.blocks.len();
