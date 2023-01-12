@@ -27,7 +27,7 @@ impl Transaction {
     pub fn input_value(&self) -> u64 {
         return self.inputs.iter().map(|input| input.value).sum()
     }
-    pub fn output_values(&self) -> u64 {
+    pub fn output_value(&self) -> u64 {
         return self.outputs.iter().map(|output| output.value).sum()
     }
     pub fn input_hashes(&self) -> HashSet<Hash> {

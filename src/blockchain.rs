@@ -9,7 +9,7 @@ pub enum BlockValidationError {
     InvalidGenesis,
     InvalidInput,
     InsufficientInput,
-    invalidBaseTransaction,
+    InvalidBaseTransaction,
 }
 
 pub struct Blockchain {
@@ -54,16 +54,31 @@ impl Blockchain {
         if let Some((base, transactions)) = block.transactions.split_first() {
 
             if !base.is_base() {
-                return Err(BlockValidationError::invalidBaseTransaction);
+                return Err(BlockValidationError::InvalidBaseTransaction);
             }
 
-            let mut block_spent:HashSet<Hash>= HashSet::new();
+            let mut block_spent: HashSet<Hash> = HashSet::new();
+            let mut block_created: HashSet<Hash> = HashSet::new();
+            let mut total = 0;
 
             for txn in transactions {
                 let input_hashes = txn.input_hashes();
                 if !(&input_hashes - &self.unspent).is_empty() || (&input_hashes & &block_spent).is_empty() {
                     return Err(BlockValidationError::InvalidInput);
                 }
+
+                let input_value = txn.input_value();
+                let output_value = txn.output_value();
+
+                if output_value > input_value {
+                    return Err(BlockValidationError::InsufficientInput);
+                }
+
+                let fee = input_value - output_value;
+                total += fee;
+
+                block_spent.extend(input_hashes);
+                block_created.extend(txn.output_hashes());
             }   
         }
         
