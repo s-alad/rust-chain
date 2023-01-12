@@ -6,7 +6,7 @@ pub struct Blockchain {
 }
 
 impl Blockchain {
-    pub fn verify(&self) -> bool {
+    pub fn verify(&mut self, block: Block) -> Result<(), > {
         for (i, block) in self.blocks.iter().enumerate() {
             if block.index != i as u32 {
                 println!("[{i}] - FAIL INDEX MISMATCH {} != {}", &block.index, &i);
