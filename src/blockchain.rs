@@ -1,4 +1,4 @@
-use std::fmt::{self, Debug, Formatter};
+use std::{fmt::{self, Debug, Formatter}, collections::HashSet};
 use super::*;
 
 pub enum BlockValidationError {
@@ -14,6 +14,7 @@ pub enum BlockValidationError {
 
 pub struct Blockchain {
     pub blocks: Vec<Block>,
+    unspent: HashSet<Hash>,
 }
 
 impl Blockchain {
@@ -48,6 +49,22 @@ impl Blockchain {
                 println!("[{i}] - FAIL GENISIS");
                 return Err(BlockValidationError::InvalidGenesis)
             }
+        }
+
+        if let Some((base, transactions)) = block.transactions.split_first() {
+
+            if !base.is_base() {
+                return Err(BlockValidationError::invalidBaseTransaction);
+            }
+
+            let mut block_spent:HashSet<Hash>= HashSet::new();
+
+            for txn in transactions {
+                let input_hashes = txn.input_hashes();
+                if !(&input_hashes - &self.unspent).is_empty() || (&input_hashes & &block_spent).is_empty() {
+                    return Err(BlockValidationError::InvalidInput);
+                }
+            }   
         }
         
         Ok(())
