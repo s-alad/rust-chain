@@ -92,6 +92,7 @@ impl Blockchain {
             self.unspent.extend(block_created)
         }
         
+        self.blocks.push(block);
         Ok(())
     }
 }
