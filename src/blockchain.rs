@@ -23,11 +23,11 @@ impl Blockchain {
 
         if block.index != i as u32 {
             println!("[{i}] - FAIL INDEX MISMATCH {} != {}", &block.index, &i);
-            return false;
+            return Err(BlockValidationError::MismatchedIndex);
         }
         else if (!block::difficulty(&block.hash(), block.difficulty)) {
             println!("[{i}] - FAIL DIFFICULTY");
-            return false;
+            return Err(BlockValidationError::InvalidHash);
         }
         else if (i != 0) {
 
@@ -35,20 +35,21 @@ impl Blockchain {
 
             if previousblock.time >= block.time  {
                 println!("[{i}] - FAIL TIME");
-                return false
+                return Err(BlockValidationError::NonChronologicalTime)
             }
 
             if previousblock.hash != block.previous {
                 println!("[{i}] - FAIL HASH");
-                return false
+                return Err(BlockValidationError::MismatchedPrevious);
             }
         }
         else {
             if block.previous != vec![0; 32] {
                 println!("[{i}] - FAIL GENISIS");
-                return false
+                return Err(BlockValidationError::InvalidGenesis)
             }
         }
         
+        Ok(())
     }
 }
