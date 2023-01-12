@@ -1,5 +1,3 @@
-use std::hash::{self, Hash};
-
 use blockchainlibrary::*;
 
 fn main() {
@@ -71,9 +69,6 @@ fn main() {
 
     block.mine();
     println!("BLOCK MINED - {:?}", &block);
-
-    let lasthash = block.hash.clone();
-
     chain.verify(block).expect("FAIL TO ADD BLOCK");
 
 

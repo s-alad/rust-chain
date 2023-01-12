@@ -1,4 +1,4 @@
-use std::{fmt::{self, Debug, Formatter}, collections::HashSet};
+use std::{fmt::{Debug}, collections::HashSet};
 use super::*;
 
 #[derive(Debug)]
@@ -36,7 +36,7 @@ impl Blockchain {
             println!("[{i}] - FAIL INDEX MISMATCH {} != {}", &block.index, &i);
             return Err(BlockValidationError::MismatchedIndex);
         }
-        else if (!block::difficulty(&block.hash(), block.difficulty)) {
+        else if !block::difficulty(&block.hash(), block.difficulty) {
             println!("[{i}] - FAIL DIFFICULTY");
             return Err(BlockValidationError::InvalidHash);
         }
