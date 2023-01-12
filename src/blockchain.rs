@@ -80,6 +80,16 @@ impl Blockchain {
                 block_spent.extend(input_hashes);
                 block_created.extend(txn.output_hashes());
             }   
+        
+            if base.output_value() < total {
+                return Err(BlockValidationError::InvalidBaseTransaction)
+            }
+            else {
+                block_created.extend(base.output_hashes())
+            }
+
+            self.unspent.retain(|output| !block_spent.contains(output));
+            self.unspent.extend(block_created)
         }
         
         Ok(())
